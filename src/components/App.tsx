@@ -7,7 +7,7 @@ function App() {
     return (
         <BrowserRouter>
             <Switch>
-                <Route component={AlbumPicker} exact path='/' />
+                <Route component={AlbumPicker} exact path="/" />
             </Switch>
         </BrowserRouter>
     );

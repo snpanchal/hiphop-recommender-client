@@ -1,18 +1,34 @@
-import React from 'react';
-import AlbumCard from '../AlbumCard';
+import React, { useEffect, useState } from 'react';
+
+import AlbumsList from '../AlbumsList';
+import { getAllAlbums } from '../../services/api';
+import { Album } from '../../services/models';
 
 function AlbumPicker() {
+    const [albums, setAlbums] = useState<Album[]>([]);
+
+    useEffect(() => {
+        getAllAlbums(2).then((res) => {
+            setAlbums(res);
+        });
+    }, []);
+
+    for (let i = 0; i < 5; i++) {
+        console.log(albums[i]);
+    }
+
+    const ratingsMap = new Map();
+
+    const onRatingChange = (albumId: string, newRating: number) => {
+        ratingsMap.set(albumId, newRating);
+    };
+
     return (
         <div>
             <p>Album Recommendation</p>
-            <AlbumCard
-                albumSpotifyId='5pF05wJrbrIvqunE41vWP8'
-                albumName='No Pressure'
-                albumArtists='Logic'
-                albumImageLink='https://i.scdn.co/image/ab67616d00001e021c76e29153f29cc1e1b2b434'
-            />
+            <AlbumsList albums={albums} onRatingChange={onRatingChange} />
         </div>
-    )
+    );
 }
 
 export default AlbumPicker;

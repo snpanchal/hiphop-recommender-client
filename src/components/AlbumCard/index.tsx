@@ -1,71 +1,78 @@
-import React, { useState } from 'react';
-import SpotifyLogo from './spotify_logo.svg';
+import React from 'react';
 import {
     Card,
     CardMedia,
     Typography,
     IconButton,
-    Icon
+    Icon,
 } from '@material-ui/core';
 import { Rating } from '@material-ui/lab';
 import useStyles from './styles';
+import { Album } from '../../services/models';
+
+import SpotifyLogo from './spotify_logo.svg';
 
 const SPOTIFY_ALBUM_BASE_URL = 'https://open.spotify.com/album';
 
 interface AlbumCardProps {
-    albumSpotifyId: string;
-    albumName: string;
-    albumArtists: string;
-    albumImageLink: string;
-};
+    album: Album;
+    onRatingChange(albumId: string, newRating: number): void;
+}
 
-function AlbumCard({
-    albumSpotifyId,
-    albumName,
-    albumArtists,
-    albumImageLink
-}: AlbumCardProps) {
+function AlbumCard({ album, onRatingChange }: AlbumCardProps) {
     const classes = useStyles();
-    const [albumRating, setAlbumRating] = useState(0);
+
+    console.log(album);
+
+    const handleRatingChange = (newRating: number | null) => {
+        const rating = newRating ? newRating : 0;
+        onRatingChange(album.spotify_id, rating);
+    };
 
     return (
         <Card className={classes.root}>
-            <CardMedia
-                component='img'
-                src={albumImageLink}
-            />
+            <CardMedia component="img" src={album.image_link} />
             <div>
                 <div className={classes.albumDetailsContainer}>
-                    <Typography className={classes.albumName} gutterBottom variant='h6'>{albumName}</Typography>
+                    <Typography className={classes.albumName} gutterBottom>
+                        {album.name}
+                    </Typography>
                     <br />
-                    <Typography className={classes.albumArtists} gutterBottom variant='subtitle1'>{albumArtists}</Typography>
+                    <Typography className={classes.albumArtists} gutterBottom>
+                        {album.artists?.map((artist) => artist.name).join(', ')}
+                    </Typography>
                 </div>
                 <IconButton
                     className={classes.spotifyLinkButton}
                     disableRipple
                     disableFocusRipple
-                    onClick={() => window.open(`${SPOTIFY_ALBUM_BASE_URL}/${albumSpotifyId}`, '_blank')}
-                    aria-label='open in Spotify'
+                    onClick={() =>
+                        window.open(
+                            `${SPOTIFY_ALBUM_BASE_URL}/${album.spotify_id}`,
+                            '_blank',
+                        )
+                    }
+                    aria-label="Open in Spotify"
                 >
                     <Icon className={classes.spotifyLink}>
-                        <img src={SpotifyLogo} height='15px' width='15px' alt='Open album in Spotify' />
+                        <img
+                            src={SpotifyLogo}
+                            height="15px"
+                            width="15px"
+                            alt={`Open ${album.name} in Spotify`}
+                            title={`Open ${album.name} in Spotify`}
+                        />
                     </Icon>
                 </IconButton>
             </div>
             <Rating
                 className={classes.rating}
-                name='simple-controlled'
-                value={albumRating}
+                size="small"
                 precision={0.5}
-                size='small'
-                onChange={(event, newRating) => {
-                    console.log('new rating:', newRating);
-                    
-                    setAlbumRating(newRating ? newRating : 0);
-                }}
+                onChange={(event, newRating) => handleRatingChange(newRating)}
             />
         </Card>
-    )
+    );
 }
 
 export default AlbumCard;

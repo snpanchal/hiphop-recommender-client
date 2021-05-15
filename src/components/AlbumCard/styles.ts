@@ -4,33 +4,35 @@ export default makeStyles(() => ({
     root: {
         maxWidth: 210,
         background: '#292626',
-        textAlign: 'center'
+        textAlign: 'center',
     },
     albumName: {
-        display: 'inline'
+        display: 'inline',
+        fontSize: '0.9rem',
     },
     albumArtists: {
         display: 'inline',
-        fontSize: 12
+        fontSize: '0.7rem',
     },
     albumDetailsContainer: {
+        width: '60%',
         color: '#f5eded',
         float: 'left',
         paddingLeft: 10,
         paddingRight: 10,
-        textAlign: 'left'
+        textAlign: 'left',
+        marginBottom: '10px',
     },
     spotifyLinkButton: {
-        float: 'right'
+        float: 'right',
     },
     spotifyLink: {
         border: '1px solid gray',
         borderRadius: 4,
-        padding: '0 1px 3px 1px'
+        padding: '0 1px 3px 1px',
     },
     rating: {
-        margin: '10 auto',
         backgroundColor: 'gray',
         borderRadius: 4,
-    }
+    },
 }));

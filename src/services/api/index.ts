@@ -1,7 +1,7 @@
-import { getAlbum, getAllAlbums, searchAlbum } from './albumProvider';
-import { getArtist, getAllArtists, searchArtist } from './artistProvider';
-import { getAlbumFeatures } from './albumFeaturesProvider';
-import { getAlbumRecommendations } from './recommendationProvider';
+import { getAlbum, getAllAlbums, searchAlbum } from './albumApi';
+import { getArtist, getAllArtists, searchArtist } from './artistApi';
+import { getAlbumFeatures } from './albumFeaturesApi';
+import { getAlbumRecommendations } from './recommendationApi';
 
 export {
     getAlbum,
@@ -11,5 +11,5 @@ export {
     getAllArtists,
     searchArtist,
     getAlbumFeatures,
-    getAlbumRecommendations
-}
+    getAlbumRecommendations,
+};
