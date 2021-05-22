@@ -17,12 +17,14 @@ const SPOTIFY_ALBUM_BASE_URL = 'https://open.spotify.com/album';
 interface AlbumCardProps {
     album: Album;
     isRecommendation: boolean;
+    initialRating?: number;
     onRatingChange(albumId: string, newRating: number): void;
 }
 
 function AlbumCard({
     album,
     isRecommendation,
+    initialRating,
     onRatingChange,
 }: AlbumCardProps) {
     const classes = useStyles();
@@ -72,6 +74,7 @@ function AlbumCard({
                 <Rating
                     className={classes.rating}
                     size="small"
+                    defaultValue={initialRating ? initialRating : 0}
                     precision={0.5}
                     onChange={(event, newRating) =>
                         handleRatingChange(newRating)

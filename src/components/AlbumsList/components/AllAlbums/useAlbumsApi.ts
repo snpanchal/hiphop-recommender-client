@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
-import { getAllAlbums } from '../../services/api';
-import { Album } from '../../services/models';
 
-export default function useAlbumSearch(pageNum: number, searchQuery: string) {
+import { getAllAlbums } from '../../../../services/api';
+import { Album } from '../../../../services/models';
+
+export default function useAlbumsApi(pageNum: number, searchQuery: string) {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
     const [albums, setAlbums] = useState<Album[]>([]);

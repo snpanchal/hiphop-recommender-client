@@ -8,7 +8,4 @@ export default makeStyles(() => ({
         width: '100%',
         margin: '10px 30px',
     },
-    loadingSpinner: {
-        // margin: '0 auto',
-    },
 }));

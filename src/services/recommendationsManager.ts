@@ -1,7 +1,7 @@
 import { getAlbumRecommendations } from './api';
 import { Album } from './models';
 
-export const ratingsMap = new Map<string, number>();
+const ratingsMap = new Map<string, number>();
 
 export function onRatingChange(albumId: string, newRating: number) {
     if (newRating === 0) {
@@ -9,6 +9,10 @@ export function onRatingChange(albumId: string, newRating: number) {
     } else {
         ratingsMap.set(albumId, newRating);
     }
+}
+
+export function getRatedAlbumsMap() {
+    return new Map<string, number>(ratingsMap);
 }
 
 export function fetchAlbumRecommendations(): Promise<Album[]> {

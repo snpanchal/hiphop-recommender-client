@@ -5,11 +5,14 @@ import { Album } from '../models';
 
 const BASE_API_URL = 'http://localhost:5000';
 
-export const getAlbumRecommendations = (
+export function getAlbumRecommendations(
     albumRatings: Map<string, number>,
-): Promise<Album[]> => {
-    const ratingsObj = Object.fromEntries(albumRatings);
+): Promise<Album[]> {
+    // if (albumRatings.size === 0) {
+    //     return Promise.resolve<Album[]>([]);
+    // }
 
+    const ratingsObj = Object.fromEntries(albumRatings);
     return axios
         .put(`${BASE_API_URL}/recommend/`, { ratings: ratingsObj })
         .then((res) => {
@@ -17,4 +20,4 @@ export const getAlbumRecommendations = (
             return response.albumRecommendations;
         })
         .catch(handleError);
-};
+}
